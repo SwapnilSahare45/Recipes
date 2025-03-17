@@ -12,8 +12,6 @@ const RecipesOfTheDay = () => {
 
             <div className='mx-3 flex flex-col justify-center gap-4 md:flex-row'>
                 <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
             </div>
 
         </div>

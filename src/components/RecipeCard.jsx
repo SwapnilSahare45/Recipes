@@ -1,26 +1,38 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
-const RecipeCard = () => {
+const RecipeCard = ({ recipes }) => {
+
     return (
-        <div className='bg-warm-cream flex flex-col items-center px-3 py-5 rounded-md shadow-md md:px-7 md:pb-7'>
 
-            <div className='text-center mb-3 md:mb-6'>
-                <h1 className='text-2xl font-bold text-warm-tomato uppercase'>Title</h1>
-            </div>
+        <>
+            {
+                recipes ? recipes.map((recipe, index) => (
+                    <div className='bg-warm-cream flex flex-col items-center px-3 py-5 rounded-md shadow-md md:px-7 md:pb-7' key={recipe._id}>
 
-            <div>
-                <img className='w-96 rounded-md' src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj1xAUC2rB4XYU6l64Knei61zna2pHJd-zWRkS3ADunLlKdhwLnVIw24yl0G2fE1RHPbxevG92ygOLNCi8Vw8303T3EtCzJo-klBKf2PzFtozmr4KzNLJM5LraCTqFao-Fhzu8p4drPCC5I/s1600/2.jpg" alt="Puran Poli" />
-            </div>
+                        <div className='text-center mb-3 md:mb-6'>
+                            <h1 className='text-2xl font-bold text-warm-tomato uppercase'>{recipe.recipeName}</h1>
+                        </div>
 
-            <div className='w-full text-right mt-3'>
-                <h5 className='text-lg text-warm-tomato'>By Swapnil Sahare</h5>
-            </div>
+                        <div>
+                            <img className='w-96 h-96 rounded-md object-cover' src={recipe.recipeImage} alt="Puran Poli" />
+                        </div>
 
-            <div className='w-full mt-3'>
-                <button className='bg-warm-salmon w-full text-white text-lg font-semibold py-2 rounded-md shadow-md'>See Recipe</button>
-            </div>
+                        <div className='w-full text-right mt-3'>
+                            <h5 className='text-lg text-warm-tomato'>By {recipe.recipeBy.userName}</h5>
+                        </div>
 
-        </div>
+                        <div className='w-full mt-3 bg-warm-salmon text-white text-lg text-center font-semibold py-2 rounded-md shadow-md'>
+                            <Link to={"/recipe/" + recipe._id} >See Recipe</Link>
+                        </div>
+
+                    </div>
+                )) : <h1>Loading...</h1>
+            }
+
+        </>
+
+
     )
 }
 

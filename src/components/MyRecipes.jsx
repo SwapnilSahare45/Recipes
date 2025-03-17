@@ -1,19 +1,32 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import RecipeCard from './RecipeCard'
+import RecipeContext from '../context/RecipeContext'
+import UserContext from '../context/UserContext'
 
 const MyRecipes = () => {
+    const { fetchMyRecipes, myRecipes } = useContext(RecipeContext);
+    const { user } = useContext(UserContext);
+
+    useEffect(() => {
+            fetchMyRecipes(user._id);
+    }, [])
+
     return (
         <div className='flex flex-col justify-center items-center mb-6'>
 
             <div className='my-6 flex gap-3'>
-                <buton className='text-xl font-semibold py-2 w-36 text-center bg-warm-orange text-white rounded-md cursor-pointer shadow-md'>My Recipes</buton>
-                <buton className='text-xl font-semibold py-2 w-36 text-center bg-warm-orange text-white rounded-md cursor-pointer shadow-md'>Favorite</buton>
+                <button className='text-xl font-semibold py-2 w-36 text-center bg-warm-orange text-white rounded-md cursor-pointer shadow-md'
+                    onClick={() => fetchMyRecipes(user._id)}>My Recipes</button>
+                <button className='text-xl font-semibold py-2 w-36 text-center bg-warm-orange text-white rounded-md cursor-pointer shadow-md'>Favorite</button>
             </div>
 
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 px-2 lg:grid-cols-3'>
-                <RecipeCard />
-                <RecipeCard />
-                <RecipeCard />
+                {
+                    myRecipes.length > 0 ?
+                        <RecipeCard recipes={myRecipes} />
+                        :
+                        <h1>No Recipes found...</h1>
+                }
             </div>
 
         </div>
