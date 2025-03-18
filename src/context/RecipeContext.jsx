@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer } from 'react';
 import { actionType } from './actionType';
-import { addRecipeService, allRecipesService, myRecipesService, recipeSearchService } from '../services/recipeServices';
+import { addRecipeService, allRecipesService, getRecipe, myRecipesService, recipeSearchService } from '../services/recipeServices';
 import { data } from 'react-router-dom';
 
 const RecipeContext = createContext();
@@ -8,6 +8,7 @@ const RecipeContext = createContext();
 const initialState = {
     allRecipes: [],
     myRecipes: [], // Array of recipes
+    fullRecipe: {},
     loading: false, // Loading state
     error: null,    // Error state
 };
@@ -34,6 +35,15 @@ const recipeReducer = (state, action) => {
 
         case actionType.FETCH_MYRECIPE_FAILURE:
             return { ...state, loading: false, error: action.payload, myRecipes: [] };
+
+        case actionType.FETCH_RECIPEBYID_PENDING:
+            return { ...state, loading: true, error: null };
+
+        case actionType.FETCH_RECIPEBYID_SUCCESS:
+            return { ...state, loading: false, fullRecipe: action.payload };
+
+        case actionType.FETCH_RECIPEBYID_FAILURE:
+            return { ...state, loading: false, error: action.payload };
 
         default:
             return state;
@@ -70,6 +80,25 @@ export const RecipeProvider = ({ children }) => {
                 return { success: true, data: response.data };
             } else {
                 dispatch({ type: actionType.FETCH_ALLRECIPE_FAILURE, payload: response.error });
+                return { success: false, error: response.error };
+            }
+        } catch (error) {
+            const errMsg = "An unexpected error occurred.";
+            dispatch({ type: actionType.FETCH_ALLRECIPE_FAILURE, payload: errMsg });
+            return { success: false, error: errMsg }
+        }
+    }
+
+    const fetchRecipeById = async (id) => {
+        dispatch({ type: actionType.FETCH_RECIPEBYID_PENDING });
+        try {
+            const response = await getRecipe(id);
+            if (response) {
+                console.log("By id:", response);
+                dispatch({ type: actionType.FETCH_RECIPEBYID_SUCCESS, payload: response.data });
+                return { success: true, data: response.data };
+            } else {
+                dispatch({ type: actionType.FETCH_RECIPEBYID_FAILURE, payload: response.error });
                 return { success: false, error: response.error };
             }
         } catch (error) {
@@ -120,7 +149,7 @@ export const RecipeProvider = ({ children }) => {
     }
 
     return (
-        <RecipeContext.Provider value={{ ...state, addRecipe, fetchAllRecipes, fetchMyRecipes, searchRecipe }}>
+        <RecipeContext.Provider value={{ ...state, addRecipe, fetchAllRecipes, fetchRecipeById, fetchMyRecipes, searchRecipe }}>
             {children}
         </RecipeContext.Provider>
     );

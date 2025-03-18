@@ -14,10 +14,8 @@ const MyRecipes = () => {
     return (
         <div className='flex flex-col justify-center items-center mb-6'>
 
-            <div className='my-6 flex gap-3'>
-                <button className='text-xl font-semibold py-2 w-36 text-center bg-warm-orange text-white rounded-md cursor-pointer shadow-md'
-                    onClick={() => fetchMyRecipes(user._id)}>My Recipes</button>
-                <button className='text-xl font-semibold py-2 w-36 text-center bg-warm-orange text-white rounded-md cursor-pointer shadow-md'>Favorite</button>
+            <div className='my-6 flex'>
+               <h1 className='text-3xl font-bold text-warm-orange'>My Recipes</h1>
             </div>
 
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 px-2 lg:grid-cols-3'>

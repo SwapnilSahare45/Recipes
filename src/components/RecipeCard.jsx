@@ -22,9 +22,7 @@ const RecipeCard = ({ recipes }) => {
                             <h5 className='text-lg text-warm-tomato'>By {recipe.recipeBy.userName}</h5>
                         </div>
 
-                        <div className='w-full mt-3 bg-warm-salmon text-white text-lg text-center font-semibold py-2 rounded-md shadow-md'>
-                            <Link to={"/recipe/" + recipe._id} >See Recipe</Link>
-                        </div>
+                        <Link to={"/recipe/" + recipe._id} className='bg-warm-salmon w-full text-white mt-3 py-2 text-center text-lg font-semibold rounded'>See Recipe</Link>
 
                     </div>
                 )) : <h1>Loading...</h1>

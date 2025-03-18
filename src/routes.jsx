@@ -7,6 +7,7 @@ import Recipes from './pages/Recipes'
 import AddRecipe from './pages/AddRecipe'
 import Profile from './pages/Profile'
 import ProtectedRoute from './components/ProtectedRoute'
+import Recipe from './pages/Recipe'
 
 
 
@@ -22,7 +23,7 @@ const routes = () => {
                 <Route path='/recipes' element={<Recipes />} />
                 <Route path='/add' element={<AddRecipe />} />
                 <Route path='/profile' element={<Profile />} />
-                <Route path='/recipe/:id' element={<h1>Recipe</h1>} />
+                <Route path='/recipe/:id' element={<Recipe />} />
             </Route>
 
             <Route path='*' element={<h1>Page not found</h1>} />

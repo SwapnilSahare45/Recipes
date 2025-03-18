@@ -1,15 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
 const Header = () => {
-
     const { isAuthenticated } = useContext(UserContext);
-    console.log(isAuthenticated)
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     useEffect(() => {
-    }, [isAuthenticated])
-    
+    }, [isAuthenticated]);
 
     return (
         <header className='h-16 bg-warm-tomato flex justify-between items-center fixed top-0 w-full z-40 md:h-20'>
@@ -17,6 +19,23 @@ const Header = () => {
                 <h1 className='text-2xl font-bold text-white md:text-3xl'>Recipe Master</h1>
             </div>
 
+            {/* Mobile Menu Button */}
+            <button className='w-7 mr-3 md:hidden' onClick={toggleMenu}>
+                {/* Hamburger Icon (when menu is closed) */}
+                {!isMenuOpen && (
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fafafa">
+                        <path d="M4 6H20M4 12H20M4 18H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                    </svg>
+                )}
+                {/* Close Icon (when menu is open) */}
+                {isMenuOpen && (
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fafafa">
+                        <path d="M6 18L18 6M6 6L18 18" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                    </svg>
+                )}
+            </button>
+
+            {/* Desktop Navigation */}
             <nav className='hidden md:flex'>
                 <ul className='flex gap-8 text-lg text-white'>
                     <li>
@@ -31,23 +50,50 @@ const Header = () => {
                 </ul>
             </nav>
 
-            {
-                !isAuthenticated
-                    ?
-                    <div className='mr-6 space-x-3 hidden md:flex'>
-                        <Link to='/login' className='bg-warm-orange text-white px-5 py-2 rounded-md shadow-md'>Login</Link>
-                        <Link to='/signup' className='bg-warm-orange text-white px-5 py-2 rounded-md shadow-md'>Signup</Link>
-                    </div>
-                    :
-                    <div className='mr-8 hidden md:block'>
-                        <Link to="/profile" >
-                            <svg className='w-12' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill='bg-green-500' d="M256 73.825a182.175 182.175 0 1 0 182.18 182.18A182.177 182.177 0 0 0 256 73.825zm0 71.833a55.05 55.05 0 1 1-55.054 55.046A55.046 55.046 0 0 1 256 145.658zm.52 208.723h-80.852c0-54.255 29.522-73.573 48.885-90.906a65.68 65.68 0 0 0 62.885 0c19.363 17.333 48.885 36.651 48.885 90.906z" data-name="Profile" /></svg>
-                        </Link>
+            {/* Mobile Navigation Menu */}
+            {isMenuOpen && (
+                <div className='fixed top-16 left-0 w-full bg-warm-tomato z-30 md:hidden'>
+                    <ul className='flex flex-col items-center gap-4 py-4 text-lg text-white'>
+                        <li>
+                            <Link to="/" onClick={toggleMenu}>Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/recipes" onClick={toggleMenu}>Recipes</Link>
+                        </li>
+                        <li>
+                            <Link to="/add" onClick={toggleMenu}>Add Recipe</Link>
+                        </li>
+                        {!isAuthenticated ? (
+                            <>
+                                <li>
+                                    <Link to='/login' onClick={toggleMenu} className='bg-warm-orange text-white px-5 py-2 rounded-md shadow-md'>Login</Link>
+                                </li>
+                                <li>
+                                    <Link to='/signup' onClick={toggleMenu} className='bg-warm-orange text-white px-5 py-2 rounded-md shadow-md'>Signup</Link>
+                                </li>
+                            </>
+                        ) : (
+                            <li>
+                                <Link to="/profile" onClick={toggleMenu}>Profile</Link>
+                            </li>
+                        )}
+                    </ul>
+                </div>
+            )}
 
-                    </div>
-            }
+            {/* Desktop Authentication Links */}
+            {!isAuthenticated ? (
+                <div className='mr-6 space-x-3 hidden md:flex'>
+                    <Link to='/login' className='bg-warm-orange text-white px-5 py-2 rounded-md shadow-md'>Login</Link>
+                    <Link to='/signup' className='bg-warm-orange text-white px-5 py-2 rounded-md shadow-md'>Signup</Link>
+                </div>
+            ) : (
+                <div className='mr-8 hidden text-lg text-white md:block'>
+                    <Link to="/profile">Profile</Link>
+                </div>
+            )}
         </header>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;

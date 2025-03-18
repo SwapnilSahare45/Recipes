@@ -28,6 +28,19 @@ export const allRecipesService = async () => {
     }
 }
 
+export const getRecipe = async (id) => {
+    try {
+        const response = await api.get(`/recipe/recipeById/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return { success: false, error: error.response.data.message };
+    }
+}
+
 export const myRecipesService = async (userId) => {
     try {
         const response = await api.get('/recipe/myRecipes', {
