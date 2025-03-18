@@ -12,7 +12,6 @@ const RecipesList = () => {
     // RecipesList.jsx
     const handleSearch = async () => {
         await searchRecipe(key);
-
         setKey('');
     }
 
@@ -39,18 +38,18 @@ const RecipesList = () => {
             </div>
 
             <div className='flex flex-wrap justify-center gap-2 my-6 sm:w-[60%] md:w-[50%] lg:w-[40%]'>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>All</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md'>Breakfast</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Brunch</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Lunch</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Dinner</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Snacks</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Desserts</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Appetizers</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Drinks</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Side Dishes</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Soups</button>
-                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4'>Salads</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={fetchAllRecipes}>All</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md' onClick={() => searchRecipe('breakfast')}>Breakfast</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('brunch')}>Brunch</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('lunch')}>Lunch</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('dinner')}>Dinner</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('snacks')}>Snacks</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('desserts')}>Desserts</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('appetizers')}>Appetizers</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('drinks')}>Drinks</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('sideDish')}>Side Dishes</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('soups')}>Soups</button>
+                <button className='bg-warm-salmon text-white px-3 py-1 rounded-md md:py-2 md:px-4' onClick={() => searchRecipe('salads')}>Salads</button>
             </div>
 
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 px-2 lg:grid-cols-3'>
@@ -63,7 +62,7 @@ const RecipesList = () => {
 
             {visibleRecipes < allRecipes.length && (
                 <div className='my-6'>
-                    <button className='bg-warm-orange text-white px-4 py-2 rounded-md'  onClick={handleLoadMore}>Load More</button>
+                    <button className='bg-warm-orange text-white px-4 py-2 rounded-md' onClick={handleLoadMore}>Load More</button>
                 </div>
             )}
         </div>
