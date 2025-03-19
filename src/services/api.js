@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: "http://localhost:4500/api",
+    baseURL: "https://recipes-backend-blond.vercel.app/api",
 });
 
 export default api;
