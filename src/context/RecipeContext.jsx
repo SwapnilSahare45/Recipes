@@ -1,16 +1,15 @@
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useReducer } from 'react';
 import { actionType } from './actionType';
 import { addRecipeService, allRecipesService, getRecipe, myRecipesService, recipeSearchService } from '../services/recipeServices';
-import { data } from 'react-router-dom';
 
 const RecipeContext = createContext();
 
 const initialState = {
     allRecipes: [],
-    myRecipes: [], // Array of recipes
+    myRecipes: [], 
     fullRecipe: {},
-    loading: false, // Loading state
-    error: null,    // Error state
+    loading: false,
+    error: null,
 };
 
 const recipeReducer = (state, action) => {
@@ -94,7 +93,6 @@ export const RecipeProvider = ({ children }) => {
         try {
             const response = await getRecipe(id);
             if (response) {
-                console.log("By id:", response);
                 dispatch({ type: actionType.FETCH_RECIPEBYID_SUCCESS, payload: response.data });
                 return { success: true, data: response.data };
             } else {
@@ -107,10 +105,6 @@ export const RecipeProvider = ({ children }) => {
             return { success: false, error: errMsg }
         }
     }
-
-    // useEffect(() => {
-    //     fetchAllRecipes();
-    // }, []);
 
     const fetchMyRecipes = async (userId) => {
         dispatch({ type: actionType.FETCH_MYRECIPE_PENDING });

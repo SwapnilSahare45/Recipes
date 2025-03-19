@@ -14,9 +14,10 @@ const Signup = () => {
     }, [isAuthenticated, navigate]);
 
     const [user, setUser] = useState({ firstName: "", lastName: "", email: "", password: "", conPassword: "" });
+
     const [error, setError] = useState(null);
-    const [showPassword, setShowPassword] = useState(false); // State for password visibility
-    const [showConPassword, setShowConPassword] = useState(false); // State for confirm password visibility
+    const [showPassword, setShowPassword] = useState(false); 
+    const [showConPassword, setShowConPassword] = useState(false); 
 
     const signUp = async () => {
         const response = await userRegister(user);
@@ -31,8 +32,8 @@ const Signup = () => {
 
     useEffect(() => {
         if (error) {
-            const timer = setTimeout(() => setError(null), 3000); // Error disappears after 3 seconds
-            return () => clearTimeout(timer); // Cleanup the timer
+            const timer = setTimeout(() => setError(null), 3000); 
+            return () => clearTimeout(timer); 
         }
     }, [error]);
 
@@ -45,7 +46,6 @@ const Signup = () => {
                 </div>
             )}
 
-            {/* Logo */}
             <div>
                 <h1 className='text-4xl text-warm-tomato font-bold sm:text-5xl'>Recipe Master</h1>
             </div>
@@ -60,7 +60,7 @@ const Signup = () => {
 
                 {/* Sign up Form */}
                 <div className='my-4'>
-                    {/* User Name */}
+
                     <div className='flex flex-col justify-between lg:flex-row'>
                         <div className='flex flex-col gap-1 lg:w-[48%]'>
                             <label htmlFor="firstName" className='text-xl'>First Name:</label>
@@ -84,7 +84,6 @@ const Signup = () => {
                         </div>
                     </div>
 
-                    {/* User email */}
                     <div className='flex flex-col gap-1 my-4'>
                         <label htmlFor="email" className='text-xl'>Email:</label>
                         <input
@@ -100,19 +99,19 @@ const Signup = () => {
                     <div className='flex flex-col gap-1 relative'>
                         <label htmlFor="password" className='text-xl'>Password:</label>
                         <input
-                            type={showPassword ? "text" : "password"} // Toggle input type
+                            type={showPassword ? "text" : "password"} 
                             id="password"
-                            className='text-xl p-2 rounded-md outline-none ring-1 ring-warm-salmon pr-10' // Add padding for the eye icon
+                            className='text-xl p-2 rounded-md outline-none ring-1 ring-warm-salmon pr-10'
                             value={user.password}
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
                         />
-                        {/* Eye Icon Button for Password */}
+            
                         <button
                             className='absolute right-2 -bottom-1 transform -translate-y-1/2 focus:outline-none'
-                            onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                            onClick={() => setShowPassword(!showPassword)} 
                         >
                             {showPassword ? (
-                                // Eye-slash icon (hidden password)
+                              
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6 text-gray-500"
@@ -128,7 +127,7 @@ const Signup = () => {
                                     />
                                 </svg>
                             ) : (
-                                // Eye icon (visible password)
+                               
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6 text-gray-500"
@@ -153,23 +152,22 @@ const Signup = () => {
                         </button>
                     </div>
 
-                    {/* Confirm Password */}
                     <div className='flex flex-col gap-1 my-4 relative'>
                         <label htmlFor="conPassword" className='text-xl'>Confirm Password:</label>
                         <input
-                            type={showConPassword ? "text" : "password"} // Toggle input type
+                            type={showConPassword ? "text" : "password"} 
                             id="conPassword"
-                            className='text-xl p-2 rounded-md outline-none ring-1 ring-warm-salmon pr-10' // Add padding for the eye icon
+                            className='text-xl p-2 rounded-md outline-none ring-1 ring-warm-salmon pr-10' 
                             value={user.conPassword}
                             onChange={(e) => setUser({ ...user, conPassword: e.target.value })}
                         />
-                        {/* Eye Icon Button for Confirm Password */}
+                       
                         <button
                             className='absolute right-2 -bottom-1 transform -translate-y-1/2 focus:outline-none'
-                            onClick={() => setShowConPassword(!showConPassword)} // Toggle confirm password visibility
+                            onClick={() => setShowConPassword(!showConPassword)} 
                         >
                             {showConPassword ? (
-                                // Eye-slash icon (hidden password)
+                               
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6 text-gray-500"
@@ -185,7 +183,7 @@ const Signup = () => {
                                     />
                                 </svg>
                             ) : (
-                                // Eye icon (visible password)
+                                
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6 text-gray-500"

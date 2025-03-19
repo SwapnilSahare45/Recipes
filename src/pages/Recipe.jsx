@@ -8,22 +8,18 @@ const Recipe = () => {
     const { fetchRecipeById, fullRecipe, error, loading } = useContext(RecipeContext);
     const { id } = useParams();
 
-    // Fetch recipe data when the component mounts or when the id changes
     useEffect(() => {
         fetchRecipeById(id);
     }, []);
 
-    // Display loading state
     if (loading) {
         return <div className="text-center mt-24">Loading...</div>;
     }
 
-    // Display error message
     if (error) {
         return <div className="text-center mt-24 text-red-500">{error}</div>;
     }
 
-    // If fullRecipe is not available or incomplete, show a "Recipe not found" message
     if (!fullRecipe || !fullRecipe.recipeBy) {
         return <div className="text-center mt-24">Recipe not found</div>;
     }
@@ -47,7 +43,6 @@ const Recipe = () => {
                         />
                     </div>
 
-                    {/* Cooking time and recipe creator name */}
                     <div className="w-4/6 flex flex-col gap-2 justify-between my-3 md:flex-row">
                         <h3 className="text-xl">
                             Cooking Time : <span className="text-warm-tomato font-semibold">{fullRecipe.cookingTime}</span> min
@@ -57,7 +52,6 @@ const Recipe = () => {
                         </h3>
                     </div>
 
-                    {/* Cuisine and Dish category */}
                     <div className="w-4/6 flex flex-col gap-2 justify-between my-3 md:flex-row">
                         <h4 className="text-xl">
                             Cuisine : <span className=" uppercase font-semibold text-warm-tomato">{fullRecipe.cuisine}</span>
@@ -67,7 +61,6 @@ const Recipe = () => {
                         </h4>
                     </div>
 
-                    {/* Ingredients */}
                     <div className="w-11/12 my-3">
                         <h3 className="text-xl">Ingredients :</h3>
                         <ul className="flex flex-wrap gap-2 mt-3">
@@ -77,7 +70,6 @@ const Recipe = () => {
                         </ul>
                     </div>
 
-                    {/* Instructions */}
                     <div className="w-11/12 my-3">
                         <h3 className="text-xl">Instructions :</h3>
                         <ol className="list-decimal list-inside flex flex-col gap-4 mt-3">

@@ -10,14 +10,31 @@ const Footer = () => {
             </div>
 
             <div>
-                <p className='text-white'>&copy;{currentYear}. All rights reserved.</p>
+                <p className='text-white'>&copy; {currentYear}. All rights reserved.</p>
             </div>
 
             <div className='md:mr-6'>
                 <ul className='flex gap-5 text-white'>
-                    <li>Email</li>
-                    <li>LinkedIn</li>
-                    <li>GitHub</li>
+                    {/* Email Link */}
+                    <li>
+                        <a href="mailto:swapnilsahare45@gmail.com" target="_blank" rel="noopener noreferrer">
+                            Email
+                        </a>
+                    </li>
+
+                    {/* LinkedIn Link */}
+                    <li>
+                        <a href="https://www.linkedin.com/in/swapnil-sahare-06a803318/" target="_blank" rel="noopener noreferrer">
+                            LinkedIn
+                        </a>
+                    </li>
+
+                    {/* GitHub Link */}
+                    <li>
+                        <a href="https://github.com/SwapnilSahare45" target="_blank" rel="noopener noreferrer">
+                            GitHub
+                        </a>
+                    </li>
                 </ul>
             </div>
 

@@ -1,8 +1,7 @@
 import api from './api';
 
-const token = localStorage.getItem('token');
-
 export const addRecipeService = async (recipeData) => {
+    const token = localStorage.getItem('token');
     try {
         const response = await api.post('/recipe/addRecipe', recipeData, {
             headers: {
@@ -16,6 +15,7 @@ export const addRecipeService = async (recipeData) => {
 }
 
 export const allRecipesService = async () => {
+    const token = localStorage.getItem('token');
     try {
         const response = await api.get('/recipe/allRecipes', {
             headers: {
@@ -29,6 +29,7 @@ export const allRecipesService = async () => {
 }
 
 export const getRecipe = async (id) => {
+    const token = localStorage.getItem('token');
     try {
         const response = await api.get(`/recipe/recipeById/${id}`, {
             headers: {
@@ -42,14 +43,15 @@ export const getRecipe = async (id) => {
 }
 
 export const myRecipesService = async (userId) => {
+    const token = localStorage.getItem('token');
     try {
         const response = await api.get('/recipe/myRecipes', {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-            params: {
+            params:{
                 userId,
-            },
+            }
         });
         return { success: true, data: response.data };
     } catch (error) {
@@ -58,6 +60,7 @@ export const myRecipesService = async (userId) => {
 }
 
 export const recipeSearchService = async (key) => {
+    const token = localStorage.getItem('token');
     try {
         const response = await api.get(`/recipe/search/${key}`, {
             headers: {

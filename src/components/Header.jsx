@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
@@ -10,8 +10,6 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    useEffect(() => {
-    }, [isAuthenticated]);
 
     return (
         <header className='h-16 bg-warm-tomato flex justify-between items-center fixed top-0 w-full z-40 md:h-20'>
@@ -21,7 +19,6 @@ const Header = () => {
 
             {/* Mobile Menu Button */}
             <button className='w-7 mr-3 md:hidden' onClick={toggleMenu}>
-                {/* Hamburger Icon (when menu is closed) */}
                 {!isMenuOpen && (
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fafafa">
                         <path d="M4 6H20M4 12H20M4 18H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>

@@ -15,7 +15,7 @@ const Login = () => {
 
     const [user, setUser] = useState({ email: "", password: "" });
     const [error, setError] = useState(null);
-    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [showPassword, setShowPassword] = useState(false); 
 
     const login = async () => {
         const response = await userLogin(user);
@@ -29,8 +29,8 @@ const Login = () => {
 
     useEffect(() => {
         if (error) {
-            const timer = setTimeout(() => setError(null), 3000); // Error disappears after 3 seconds
-            return () => clearTimeout(timer); // Cleanup the timer
+            const timer = setTimeout(() => setError(null), 3000); 
+            return () => clearTimeout(timer); 
         }
     }, [error]);
 
@@ -43,7 +43,6 @@ const Login = () => {
                 </div>
             )}
 
-            {/* Logo */}
             <div>
                 <h1 className='text-warm-tomato text-4xl font-bold sm:text-5xl'>Recipe Master</h1>
             </div>
@@ -72,19 +71,19 @@ const Login = () => {
                     <div className='flex flex-col gap-1 mt-7 relative'>
                         <label htmlFor="password" className='text-xl'>Password:</label>
                         <input
-                            type={showPassword ? "text" : "password"} // Toggle input type
+                            type={showPassword ? "text" : "password"} 
                             id="password"
-                            className='text-xl p-2 rounded-md outline-none ring-1 ring-warm-salmon pr-10' // Add padding for the eye icon
+                            className='text-xl p-2 rounded-md outline-none ring-1 ring-warm-salmon pr-10' 
                             value={user.password}
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
                         />
+
                         {/* Eye Icon Button */}
                         <button
                             className='absolute right-2 -bottom-1 transform -translate-y-1/2 focus:outline-none'
-                            onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                            onClick={() => setShowPassword(!showPassword)} 
                         >
                             {showPassword ? (
-                                // Eye-slash icon (hidden password)
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="w-6 text-gray-500"
@@ -100,7 +99,6 @@ const Login = () => {
                                     />
                                 </svg>
                             ) : (
-                                // Eye icon (visible password)
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="w-6 text-gray-500"

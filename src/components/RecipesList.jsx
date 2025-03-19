@@ -9,14 +9,13 @@ const RecipesList = () => {
 
     const { fetchAllRecipes, allRecipes, searchRecipe, error } = useContext(RecipeContext);
 
-    // RecipesList.jsx
     const handleSearch = async () => {
         await searchRecipe(key);
         setKey('');
     }
 
     const handleLoadMore = () => {
-        setVisibleRecipes((prev) => prev + 9); // Increase the number of visible recipes by 10
+        setVisibleRecipes((prev) => prev + 9); 
     };
 
     useEffect(() => {

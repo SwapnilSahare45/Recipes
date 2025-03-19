@@ -2,10 +2,8 @@ import { createContext, useEffect, useReducer } from "react";
 import { userLoginService, userRegisterService, userProfileService } from "../services/userServices";
 import { actionType } from "./actionType";
 
-// Create user context
 const UserContext = createContext();
 
-// Initial State
 const initialState = {
     user: null,
     isAuthenticated: false,
@@ -13,8 +11,6 @@ const initialState = {
     error: null,
 };
 
-
-// Create user reducer
 const userReducer = (state, action) => {
     switch (action.type) {
         case actionType.USER_REGISTER_PENDING:
@@ -37,11 +33,9 @@ const userReducer = (state, action) => {
     }
 }
 
-// Create user provider
 export const UserProvider = ({ children }) => {
     const [state, dispatch] = useReducer(userReducer, initialState);
 
-    // Handle user registration
     const userRegister = async (user) => {
         dispatch({ type: actionType.USER_REGISTER_PENDING });
         try {
@@ -60,7 +54,6 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-    // Handle user login
     const userLogin = async (user) => {
         dispatch({ type: actionType.USER_LOGIN_PENDING });
         try {
@@ -81,9 +74,9 @@ export const UserProvider = ({ children }) => {
     }
 
     const userProfile = async () => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            try {
+        const token = localStorage.getItem('token');
+        try {
+            if (token) {
                 const response = await userProfileService(token);
                 if (response.success) {
                     dispatch({ type: actionType.USER_LOGIN_SUCCESS, payload: response.data.user });
@@ -92,22 +85,25 @@ export const UserProvider = ({ children }) => {
                     dispatch({ type: actionType.USER_LOGIN_FAILURE, payload: response.error });
                     return { success: false, error: response.error };
                 }
-            } catch (error) {
-                const errMsg = "An unexpected error occurred.";
-                dispatch({ type: actionType.USER_LOGIN_FAILURE, payload: errMsg });
-                return { success: false, error: errMsg };
+            } else {
+                return { success: false, error: response.error }
             }
+        } catch (error) {
+            const errMsg = "An unexpected error occurred.";
+            dispatch({ type: actionType.USER_LOGIN_FAILURE, payload: errMsg });
+            return { success: false, error: errMsg };
         }
     }
 
     const logout = () => {
-        localStorage.removeItem('token'); // Clear token from localStorage
-        dispatch({ type: actionType.USER_LOGOUT }); // Reset user state
+        localStorage.removeItem('token');
+        dispatch({ type: actionType.USER_LOGOUT });
     };
 
     useEffect(() => {
         userProfile();
     }, []);
+
     return (
         <UserContext.Provider value={{ ...state, userRegister, userLogin, logout }}>
             {children}
